@@ -14,15 +14,14 @@ export default function (sel, data, c) {
     if (typeof c == 'string' || typeof c == 'number') {
         return vnode(sel, data, undefined, c, undefined)
     } else if (Array.isArray(c)) {
-        c.forEach(item => {
-
+        const flag = c.every(item => {
+            return typeof item === 'object'
         })
-    } else if (typeof c === 'object' && c.hasOwnProperty('sel')) {
-        return {
-            sel,
-            data,
-            childre: c
+        if (flag) {
+            return vnode(sel, data, c, undefined, undefined)
         }
+    } else if (typeof c === 'object' && c.hasOwnProperty('sel')) {
+        return vnode(sel, data, c)
     } else {
         console.error('错啦,饮茶先啦,干咩')
     }
