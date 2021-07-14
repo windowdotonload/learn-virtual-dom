@@ -16,7 +16,10 @@ export default function (oldVnode, newVnode) {
         // 同一个节点进行精细比较
     } else {
         // 不是同一个节点暴力删除
-        const productionNode = createElement(newVnode, oldVnode.elm)
-        oldVnode.elm.parentNode.insertBefore(productionNode, oldVnode)
+        console.log('ok')
+        const productionNode = createElement(newVnode)
+        // if (oldVnode.elm.parentNode != undefined && productionNode) {
+        //     oldVnode.elm.parentNode.insertBefore(productionNode, oldVnode)
+        // }
     }
 }

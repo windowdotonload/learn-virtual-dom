@@ -11,7 +11,12 @@ export default function createElement(vnode) {
         domNode.innerText = vnode.text
         vnode.elm = domNode
     } else if (Array.isArray(vnode.children) && vnode.children.length > 0) {
-
+        console.log('ok')
+        for (let item of vnode.children) {
+            let ch = item
+            console.log(ch)
+            let chDom = createElement(ch)
+        }
     }
 
     return vnode.elm
