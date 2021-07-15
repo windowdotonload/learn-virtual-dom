@@ -1,8 +1,15 @@
 /*
+ * @Descripttion: 
+ * @version: 
+ * @Author: windowdotonload
+ */
+/*
  * @Descripttion:
  * @version:
  * @Author: windowdotonload
  */
+import createElement from "./createElement"
+import updateChildren from "./updateChildre"
 export default function patchVnode(oldVnode, newVnode) {
     // 同一个节点进行精细比较
     // 判断新旧节点是否相等
@@ -19,6 +26,7 @@ export default function patchVnode(oldVnode, newVnode) {
         // 判断oldVnode有没有children属性
         if (oldVnode.children != undefined && oldVnode.children.length > 0) {
             // 新老都有children
+            updateChildren(oldVnode.elm, oldVnode.children, newVnode.children)
         } else {
             // oldVnode 没有children
             oldVnode.elm.innerHTML = ''
