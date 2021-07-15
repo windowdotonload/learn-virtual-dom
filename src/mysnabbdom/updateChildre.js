@@ -36,7 +36,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
         } else if (checkSameVndoe(oldStartVnode, newEndVnode)) {
             // 新后与旧前
             console.log('新后与旧前')
-            patchVnode(oldEndVnode, newStartVnode)
+            patchVnode(oldStartVnode, newEndVnode)
             // 移动节点
             parentElm.insertBefore(oldStartVnode.elm, oldEndVnode.elm.nextSibling)
             oldStartVnode = oldCh[++oldStartIdx]
@@ -49,6 +49,12 @@ export default function updateChildren(parentElm, oldCh, newCh) {
             parentElm.insertBefore(oldEndVnode.elm, oldEndVnode.elm)
             oldEndVnode = oldCh[--oldEndIdx]
             newStartVnode = newCh[++newStartIdx]
+        } else {
+            // 都没有找到
         }
+    }
+    // 循坏结束后继续看看有没有剩余的节点
+    if (newStartIdx <= newEndIdx) {
+
     }
 }
