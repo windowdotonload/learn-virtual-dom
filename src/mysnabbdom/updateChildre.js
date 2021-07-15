@@ -14,7 +14,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
     let oldStartIdx = 0
     let newStartIdx = 0
     let oldEndIdx = oldCh.length - 1
-    let newEndIdx = oldCh.length - 1
+    let newEndIdx = newCh.length - 1
     let oldStartVnode = oldCh[0]
     let newStartVnode = newCh[0]
     let oldEndVnode = oldCh[oldEndIdx]
@@ -39,9 +39,9 @@ export default function updateChildren(parentElm, oldCh, newCh) {
         } else if (checkSameVndoe(oldEndVnode, newEndVnode)) {
             // 新后与旧后
             console.log('新后与旧后')
-            patchVnode(oldStartVnode, newStartVnode)
-            oldEndVnode = oldCh[--oldStartIdx]
-            newEndVnode = newCh[--newStartIdx]
+            patchVnode(oldEndVnode, newEndVnode)
+            oldEndVnode = oldCh[--oldEndIdx]
+            newEndVnode = newCh[--newEndIdx]
         } else if (checkSameVndoe(oldStartVnode, newEndVnode)) {
             // 新后与旧前
             console.log('新后与旧前')
@@ -64,6 +64,8 @@ export default function updateChildren(parentElm, oldCh, newCh) {
             if (!keyMap) {
                 keyMap = {}
                 for (let i = oldStartIdx; i < oldEndIdx; i++) {
+                    console.log(i);
+                    console.log('oldCh[i]', oldCh[i]);
                     const key = oldCh[i].key
                     if (key != undefined) {
                         keyMap[key] = i
@@ -91,11 +93,11 @@ export default function updateChildren(parentElm, oldCh, newCh) {
     // 循坏结束后继续看看有没有剩余的节点
     if (newStartIdx <= newEndIdx) {
         // newVnode没有结束则添加节点
-        const before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].elm
+        // const before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].elm
 
         for (let i = newStartIdx; i <= newEndIdx; i++) {
             // 如果before为null，那么自动添加到尾部
-            parentElm.insertBefore(createElement(newCh[i]), before)
+            parentElm.insertBefore(createElement(newCh[i]), oldCh[oldStartIdx].elm)
         }
     } else if (oldStartIdx <= oldEndIdx) {
         // oldVnode没有结束则删除节点
