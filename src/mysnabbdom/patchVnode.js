@@ -28,7 +28,7 @@ export default function patchVnode(oldVnode, newVnode) {
             // 新老都有children
             updateChildren(oldVnode.elm, oldVnode.children, newVnode.children)
         } else {
-            // oldVnode 没有children
+            // oldVnode 没有children,newVnode有children
             oldVnode.elm.innerHTML = ''
             for (let item of newVnode.children) {
                 let dom = createElement(item)
