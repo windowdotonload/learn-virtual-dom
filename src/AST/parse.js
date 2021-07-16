@@ -11,14 +11,14 @@ export default function parse(template) {
     let wordRegExp = /^([^\<]+)\<\/([a-z]+[1-6]?)\>/
     // 准备两个栈
     let stack1 = []
-    let stack2 = []
+    let stack2 = [{ children: [] }]
     while (index < template.length - 1) {
         // 识别遍历到的是不是一个开始标签
         rest = template.substring(index)
         if (tagReg.test(rest)) {
             let tag = rest.match(tagReg)[1]
             console.log(tag)
-            // 将开始标记推入栈中
+            // 将开始标记推入栈1中
             stack1.push(tag)
             // 将空数组推入栈2中
             stack2.push({ tag: tag, children: [] })
@@ -43,7 +43,7 @@ export default function parse(template) {
                 // 文字不全为空的时候操作
                 // 推入stack2栈顶
                 console.log(word)
-                stack2[stack2.length - 1].push({ text: word, type: 3 })
+                stack2[stack2.length - 1].children.push({ text: word, type: 3 })
             }
             index += word.length
         }
@@ -52,4 +52,5 @@ export default function parse(template) {
             index++
         }
     }
+    return stack2[0].children[0]
 }

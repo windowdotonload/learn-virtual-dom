@@ -12,4 +12,5 @@ var template = `<div>
 </div>
 `
 const ast = parse(template)
+console.log(ast)
 
