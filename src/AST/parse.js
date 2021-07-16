@@ -6,7 +6,7 @@
 export default function parse(template) {
     let index = 0
     let rest = ''
-    let tagReg = /^\<([a-z]+[1-6]?)\>/
+    let tagReg = /^\<([a-z]+[1-6]?)(\s[^\<]+)?\>/
     let tagEndReg = /^\<\/([a-z]+[1-6]?)\>/
     let wordRegExp = /^([^\<]+)\<\/([a-z]+[1-6]?)\>/
     // 准备两个栈
@@ -17,6 +17,8 @@ export default function parse(template) {
         rest = template.substring(index)
         if (tagReg.test(rest)) {
             let tag = rest.match(tagReg)[1]
+            let attrString = rest.match(tagReg)[2]
+            const attrStringLength = rest.match(tagReg)[2] == undefined ? 0 : attrString.length
             console.log(tag)
             // 将开始标记推入栈1中
             stack1.push(tag)
@@ -25,6 +27,7 @@ export default function parse(template) {
             index += tag.length + 2
         } else if (tagEndReg.test(rest)) {
             let tag = rest.match(tagEndReg)[1]
+
             console.log(tag)
             if (tag == stack1[stack1.length - 1]) {
                 let pop_tag = stack1.pop()
